@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div class="box" id="b1" onclick="swap(this.id)">a</div>
+        <div class="box" id="b2" onclick="swap(this.id)">b</div>
+        <div class="box" id="b3" onclick="swap(this.id)">c</div>
+    </div>
+    <div style="display: flex;">
+        <div class="box" id="b4" onclick="swap(this.id)">d</div>
+        <div class="box" id="b5" onclick="swap(this.id)">e</div>
+        <div class="box" id="b6" onclick="swap(this.id)">f</div>
+    </div>
+    <div style="display: flex;">
+        <div class="box" id="b7" onclick="swap(this.id)">g</div>
+        <div class="box" id="b8" onclick="swap(this.id)"></div>
+        <div class="box" id="b9" onclick="swap(this.id)">h</div>
+    </div>
+</body>
+<style>
+    .box {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        border: 1px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<script>
+    let boxList = [];
+    window.onload = function () {
+        let count = 0;
+        for (let i = 0; i < 3; i++) {
+            boxList[i] = [];
+            for (let j = 0; j < 3; j++) {
+                count++;
+                boxList[i][j] = document.querySelector('#b' + count);
+
+            }
+        }
+    }
+
+    let swap = function (id) {
+        let idNum = id.slice(-1) - 1
+        let rowNum = (idNum - idNum % 3) / 3;
+        let colNum = idNum % 3;
+        // 上
+        if(rowNum > 0) {
+            if(boxList[rowNum - 1][colNum].innerHTML == "") {
+                boxList[rowNum - 1][colNum].innerHTML = boxList[rowNum][colNum].innerHTML;
+                boxList[rowNum][colNum].innerHTML = ""
+            }
+        }
+        // 右
+        if(colNum < 2) {
+            if(boxList[rowNum][colNum + 1].innerHTML == "") {
+                boxList[rowNum][colNum + 1].innerHTML = boxList[rowNum][colNum].innerHTML;
+                boxList[rowNum][colNum].innerHTML = ""
+            }
+        }
+        // 左
+        if(colNum > 0) {
+            if(boxList[rowNum][colNum - 1].innerHTML == "") {
+                boxList[rowNum][colNum - 1].innerHTML = boxList[rowNum][colNum].innerHTML;
+                boxList[rowNum][colNum].innerHTML = ""
+            }
+        }
+        // 下
+        if(rowNum < 2) {
+            if(boxList[rowNum + 1][colNum].innerHTML == "") {
+                boxList[rowNum + 1][colNum].innerHTML = boxList[rowNum][colNum].innerHTML;
+                boxList[rowNum][colNum].innerHTML = ""
+            }
+        }
+    } 
+</script>
+
+</html>
